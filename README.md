@@ -56,4 +56,4 @@ SOC Project
 
 수행 URL
 ------
-[Service Web Page](http://35.173.220.182:8080/)
+[Service Web Page](http://54.237.26.53:5000/)
