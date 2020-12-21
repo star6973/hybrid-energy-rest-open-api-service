@@ -4,7 +4,7 @@ from flask import Blueprint, request, render_template
 from form import AreaSearchForm, DaySearchForm, MonthSearchForm, YearSearchForm
 
 example_blueprint = Blueprint('example', __name__)
-SERVER_URL='http://127.0.0.1:8080'
+SERVER_URL='http://127.0.0.1:5000'
 
 
 @example_blueprint.route('/day', methods=['GET', 'POST'])
@@ -50,7 +50,7 @@ def day():
                     code=3
                 )
 
-    url = 'http://127.0.0.1:8080/day-energy/2017-01-01/area/경기도'
+    url = 'http://127.0.0.1:5000/day-energy/2017-01-01/area/경기도'
     res = requests.get(
         url=url
     )
@@ -112,7 +112,7 @@ def month():
                     code=3
                 )
 
-    url = 'http://127.0.0.1:8080/month-energy/2017-01/area/경기도'
+    url = 'http://127.0.0.1:5000/month-energy/2017-01/area/경기도'
     res = requests.get(
         url=url
     )
@@ -173,7 +173,7 @@ def year():
                     code=3
                 )
 
-    url = 'http://127.0.0.1:8080/year-energy/2017/area/경기도'
+    url = 'http://127.0.0.1:5000/year-energy/2017/area/경기도'
     res = requests.get(
         url=url
     )

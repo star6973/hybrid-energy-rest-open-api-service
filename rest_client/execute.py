@@ -4,7 +4,7 @@ from flask import Blueprint, request, render_template
 from form import  DaySearchForm, MonthSearchForm, YearSearchForm
 
 execute_blueprint = Blueprint('execute', __name__)
-SERVER_URL='http://127.0.0.1:8080'
+SERVER_URL='http://127.0.0.1:5000'
 
 
 @execute_blueprint.route('/day', methods=['GET', 'POST'])

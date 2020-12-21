@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from flask_restful import Api
-import logging
 
 from rest_client.example import example_blueprint
 from rest_client.execute import execute_blueprint
@@ -32,8 +31,7 @@ def hello_html():
     )
 
 if __name__ == "__main__":
-    logging.info("Flask Web Server Started!!!")
 
     app.debug = True
     app.config['DEBUG'] = True
-    app.run(host="0.0.0.0", port="8080")
+    app.run(host="localhost", port="5000")
