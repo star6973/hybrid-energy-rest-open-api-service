@@ -1,0 +1,603 @@
+{% extends "base.html" %}
+{% block title %} Manual {% endblock %}
+{% block style %}
+    <style>
+        .btn.btn-link, .btn.btn-default.btn-link {
+            background-color: transparent;
+            color: #000000;
+            box-shadow: none;
+            font-size:1rem;
+        }
+        .card .card-header-danger .card-icon, .card .card-header-danger .card-text, .card .card-header-danger:not(.card-header-icon):not(.card-header-text), .card.bg-danger, .card.card-rotate.bg-danger .front, .card.card-rotate.bg-danger .back {
+            background: linear-gradient(60deg, #ef5350, #e53935);
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="card card-nav-tabs">
+        <div class="card-header card-header-success">
+            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#day" data-toggle="tab">지역별 일간 재생 에너지 최적 비율 및 발전 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#month" data-toggle="tab">지역별 월간 재생 에너지 최적 비율 및 발전 정보</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#year" data-toggle="tab">지역별 연간 재생 에너지 최적 비율 및 발전 정보</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="day">
+                    <h3><strong>1. API 기본 정보</strong></h3>
+                    <table class="table">
+                        <thead>
+                        <tr class="table table-striped">
+                            <th scope="col">메서드</th>
+                            <th scope="col">요청 URL</th>
+                            <th scope="col">출력 포맷</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>GET</th>
+                            <th>http://35.173.220.182:8080/</th>
+                            <th>JSON</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3><strong>2. 요청 변수</strong></h3>
+                    <table class="table">
+                        <thead>
+                        <tr class="table table-striped">
+                            <th scope="col">요청 변수</th>
+                            <th scope="col">타입</th>
+                            <th scope="col">필수 여부</th>
+                            <th scope="col">기본값</th>
+                            <th scope="col">설명</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>date</th>
+                            <th>string</th>
+                            <th>Y</th>
+                            <th>-</th>
+                            <th>검색을 원하는 연도와 달, YYYY-MM-DD 형식을 입력한다.</th>
+                        </tr>
+                        <tr>
+                            <th>area</th>
+                            <th>string</th>
+                            <th>Y</th>
+                            <th>-</th>
+                            <th>검색을 원하는 지역, 17개 도시의 검색이 가능하다.</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3><strong>3. 출력 결과</strong></h3>
+                    <table class="table">
+                        <thead>
+                        <tr class="table table-striped">
+                            <th scope="col">필드</th>
+                            <th scope="col">타입</th>
+                            <th scope="col">설명</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Administrative_Area</th>
+                            <th>string</th>
+                            <th>행정 구역명</th>
+                        </tr>
+                        <tr>
+                            <th>Observation</th>
+                            <th>string</th>
+                            <th>관측 일(YYYY-MM-DD)</th>
+                        </tr>
+                        <tr>
+                            <th>P_pv</th>
+                            <th>Float</th>
+                            <th>일간 관측된 태양광 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>P_wind</th>
+                            <th>Float</th>
+                            <th>일간 관측된 풍력 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>P_load</th>
+                            <th>Float</th>
+                            <th>일간 관측된 전력 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_prompt1</th>
+                            <th>Float</th>
+                            <th>일간 태양광, 풍력 발전 최적 비율 중 태양광 발전 비율</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_prompt2</th>
+                            <th>Float</th>
+                            <th>일간 태양광, 풍력 발전 최적 비율 중 풍력 발전 비율</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_cost</th>
+                            <th>Integer</th>
+                            <th>일간 최적의 비율로 생산되는 전력 발전 설비 비용</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_soc</th>
+                            <th>Float</th>
+                            <th>일간 최적의 배터리 충전 상태</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_wind</th>
+                            <th>Float</th>
+                            <th>일간 최적의 풍력 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_dummy</th>
+                            <th>Float</th>
+                            <th>일간 배터리 충전 초과 후 잉여전력</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_pv</th>
+                            <th>Float</th>
+                            <th>일간 최적의 태양광 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_battery</th>
+                            <th>Float</th>
+                            <th>일간 최적의 비율로 생산되어 충전된 배터리 양</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_load</th>
+                            <th>Float</th>
+                            <th>일간 최적의 전력 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_dg</th>
+                            <th>Float</th>
+                            <th>일간 최적의 디젤발전기 발전용량</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3><strong>5. 예시</strong></h3>
+
+                    <h4><strong>호출</strong></h4>
+                    <div class="d-block p-2 bg-dark text-white">
+                        <pre class="d-block p-2 bg-dark text-white"><code>curl http://35.173.220.182:8080/day-energy/2017-01-01/area/%EA%B2%BD%EA%B8%B0%EB%8F%84</code></pre>
+                    </div>
+                    <h4><strong>요청</strong></h4>
+                    <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>> GET /day-energy/2017-01-01/area/%EA%B2%BD%EA%B8%B0%EB%8F%84 HTTP/1.1
+> Host: 35.173.220.182:8080
+> User-Agent: curl/7.55.1
+> Accept: */*</code></pre>
+                    </div>
+                    <h4><strong>응답</strong></h4>
+                    <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>< HTTP/1.0 200 OK
+< Content-Type: application/json
+< Content-Length: 3984
+< Server: Werkzeug/0.16.0 Python/3.7.5
+< Date: Tue, 17 Dec 2019 18:22:55 GMT
+<
+{
+    "Administrative_Area": "\uacbd\uae30\ub3c4",
+    "Observation": "2017-01-01",
+    "P_pv": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0.09,
+        0.29,
+        0.67,
+        0.84,
+        0.89,
+        0.82,
+        0.44,
+        0.4,
+        0.11,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ], ...
+}</code></pre>
+
+                    </div>            </div>
+                <div class="tab-pane" id="month">
+                    <h3><strong>1. API 기본 정보</strong></h3>
+                    <table class="table">
+                        <thead>
+                        <tr class="table table-striped">
+                            <th scope="col">메서드</th>
+                            <th scope="col">요청 URL</th>
+                            <th scope="col">출력 포맷</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>GET</th>
+                            <th>http://35.173.220.182:8080/</th>
+                            <th>JSON</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3><strong>2. 요청 변수</strong></h3>
+                    <table class="table">
+                        <thead>
+                        <tr class="table table-striped">
+                            <th scope="col">요청 변수</th>
+                            <th scope="col">타입</th>
+                            <th scope="col">필수 여부</th>
+                            <th scope="col">기본값</th>
+                            <th scope="col">설명</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>date</th>
+                            <th>string</th>
+                            <th>Y</th>
+                            <th>-</th>
+                            <th>검색을 원하는 연도와 달, YYYY-MM 형식을 입력한다.</th>
+                        </tr>
+                        <tr>
+                            <th>area</th>
+                            <th>string</th>
+                            <th>Y</th>
+                            <th>-</th>
+                            <th>검색을 원하는 지역, 17개 도시의 검색이 가능하다.</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3><strong>3. 출력 결과</strong></h3>
+                    <table class="table">
+                        <thead>
+                        <tr class="table table-striped">
+                            <th scope="col">필드</th>
+                            <th scope="col">타입</th>
+                            <th scope="col">설명</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Administrative_Area</th>
+                            <th>string</th>
+                            <th>행정 구역명</th>
+                        </tr>
+                        <tr>
+                            <th>Observation</th>
+                            <th>string</th>
+                            <th>관측 일(YYYY-MM)</th>
+                        </tr>
+                        <tr>
+                            <th>P_pv</th>
+                            <th>Float</th>
+                            <th>월간 관측된 태양광 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>P_wind</th>
+                            <th>Float</th>
+                            <th>월간 관측된 풍력 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>P_load</th>
+                            <th>Float</th>
+                            <th>월간 관측된 전력 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_prompt1</th>
+                            <th>Float</th>
+                            <th>월간 태양광, 풍력 발전 최적 비율 중 태양광 발전 비율</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_prompt2</th>
+                            <th>Float</th>
+                            <th>월간 태양광, 풍력 발전 최적 비율 중 풍력 발전 비율</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_cost</th>
+                            <th>Integer</th>
+                            <th>월간 최적의 비율로 생산되는 전력 발전 설비 비용</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_soc</th>
+                            <th>Float</th>
+                            <th>월간 최적의 배터리 충전 상태</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_wind</th>
+                            <th>Float</th>
+                            <th>월간 최적의 풍력 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_dummy</th>
+                            <th>Float</th>
+                            <th>월간 배터리 충전 초과 후 잉여전력</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_pv</th>
+                            <th>Float</th>
+                            <th>월간 최적의 태양광 에너지 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_battery</th>
+                            <th>Float</th>
+                            <th>월간 최적의 비율로 생산되어 충전된 배터리 양</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_load</th>
+                            <th>Float</th>
+                            <th>월간 최적의 전력 발전량</th>
+                        </tr>
+                        <tr>
+                            <th>Optimal_p_dg</th>
+                            <th>Float</th>
+                            <th>월간 최적의 디젤발전기 발전용량</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3><strong>5. 예시</strong></h3>
+
+                    <h4><strong>호출</strong></h4>
+                    <div class="d-block p-2 bg-dark text-white">
+                        <pre class="d-block p-2 bg-dark text-white"><code>curl http://35.173.220.182:8080/month-energy/2017-01/area/%EA%B2%BD%EA%B8%B0%EB%8F%84</code></pre>
+                    </div>
+                    <h4><strong>요청</strong></h4>
+                    <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>> GET /month-energy/2017-01/area/%EA%B2%BD%EA%B8%B0%EB%8F%84 HTTP/1.1
+> Host: 35.173.220.182:8080
+> User-Agent: curl/7.55.1
+> Accept: */*</code></pre>
+                    </div>
+
+                    <h4><strong>응답</strong></h4>
+                    <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>< HTTP/1.0 200 OK
+< Content-Type: application/json
+< Content-Length: 4046
+< Server: Werkzeug/0.16.0 Python/3.7.5
+< Date: Tue, 17 Dec 2019 18:23:59 GMT
+<
+{
+    "Administrative_Area": "\uacbd\uae30\ub3c4",
+    "Observation": "2017-01",
+    "P_pv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.004,
+        0.203,
+        0.587,
+        0.917,
+        1.178,
+        1.311,
+        1.208,
+        1.033,
+        0.708,
+        0.329,
+        0.042,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    ], ...
+}</code></pre>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="year">
+                    <h3><strong>1. API 기본 정보</strong></h3>
+                <table class="table">
+                    <thead>
+                    <tr class="table table-striped">
+                        <th scope="col">메서드</th>
+                        <th scope="col">요청 URL</th>
+                        <th scope="col">출력 포맷</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>GET</th>
+                        <th>http://35.173.220.182:8080/</th>
+                        <th>JSON</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <h3><strong>2. 요청 변수</strong></h3>
+                <table class="table">
+                    <thead>
+                    <tr class="table table-striped">
+                        <th scope="col">요청 변수</th>
+                        <th scope="col">타입</th>
+                        <th scope="col">필수 여부</th>
+                        <th scope="col">기본값</th>
+                        <th scope="col">설명</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>date</th>
+                        <th>string</th>
+                        <th>Y</th>
+                        <th>-</th>
+                        <th>검색을 원하는 연도와 달, YYYY 형식을 입력한다.</th>
+                    </tr>
+                    <tr>
+                        <th>area</th>
+                        <th>string</th>
+                        <th>Y</th>
+                        <th>-</th>
+                        <th>검색을 원하는 지역, 17개 도시의 검색이 가능하다.</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <h3><strong>3. 출력 결과</strong></h3>
+                <table class="table">
+                    <thead>
+                    <tr class="table table-striped">
+                        <th scope="col">필드</th>
+                        <th scope="col">타입</th>
+                        <th scope="col">설명</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>Administrative_Area</th>
+                        <th>string</th>
+                        <th>행정 구역명</th>
+                    </tr>
+                    <tr>
+                        <th>Observation</th>
+                        <th>string</th>
+                        <th>관측 일(YYYY)</th>
+                    </tr>
+                    <tr>
+                        <th>P_pv</th>
+                        <th>Float</th>
+                        <th>연별 관측된 태양광 에너지 발전량</th>
+                    </tr>
+                    <tr>
+                        <th>P_wind</th>
+                        <th>Float</th>
+                        <th>연간 관측된 풍력 에너지 발전량</th>
+                    </tr>
+                    <tr>
+                        <th>P_load</th>
+                        <th>Float</th>
+                        <th>연간 관측된 전력 발전량</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_prompt1</th>
+                        <th>Float</th>
+                        <th>연간 태양광, 풍력 발전 최적 비율 중 태양광 발전 비율</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_prompt2</th>
+                        <th>Float</th>
+                        <th>연간 태양광, 풍력 발전 최적 비율 중 풍력 발전 비율</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_cost</th>
+                        <th>Integer</th>
+                        <th>연간 최적의 비율로 생산되는 전력 발전 설비 비용</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_soc</th>
+                        <th>Float</th>
+                        <th>연간 최적의 배터리 충전 상태</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_p_wind</th>
+                        <th>Float</th>
+                        <th>연간 최적의 풍력 에너지 발전량</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_p_dummy</th>
+                        <th>Float</th>
+                        <th>연간 배터리 충전 초과 후 잉여전력</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_p_pv</th>
+                        <th>Float</th>
+                        <th>연간 최적의 태양광 에너지 발전량</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_p_battery</th>
+                        <th>Float</th>
+                        <th>연간 최적의 비율로 생산되어 충전된 배터리 양</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_p_load</th>
+                        <th>Float</th>
+                        <th>연간 최적의 전력 발전량</th>
+                    </tr>
+                    <tr>
+                        <th>Optimal_p_dg</th>
+                        <th>Float</th>
+                        <th>연간 최적의 디젤발전기 발전용량</th>
+                    </tr>
+                    </tbody>
+                    </tbody>
+                </table>
+                <h3><strong>5. 예시</strong></h3>
+
+                <h4><strong>호출</strong></h4>
+                <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>curl http://35.173.220.182:8080/year-energy/2017/area/%EA%B2%BD%EA%B8%B0%EB%8F%84</code></pre>
+                </div>
+                <h4><strong>요청</strong></h4>
+                <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>> GET /year-energy/2017/area/%EA%B2%BD%EA%B8%B0%EB%8F%84 HTTP/1.1
+> Host: 35.173.220.182:8080
+> User-Agent: curl/7.55.1
+> Accept: */*</code></pre>
+                </div>
+                    <h4><strong>응답</strong></h4>
+                <div class="d-block p-2 bg-dark text-white">
+                    <pre class="d-block p-2 bg-dark text-white"><code>< HTTP/1.0 200 OK
+< HTTP/1.0 200 OK
+< Content-Type: application/json
+< Content-Length: 4135
+< Server: Werkzeug/0.16.0 Python/3.7.5
+< Date: Tue, 17 Dec 2019 18:24:43 GMT
+<
+{
+    "Administrative_Area": "\uacbd\uae30\ub3c4",
+    "Observation": "2017",
+    "P_pv": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0057,
+        0.0824,
+        0.2956,
+        0.6742,
+        1.0816,
+        1.4125,
+        1.6529,
+        1.692,
+        1.6125,
+        1.4062,
+        1.0829,
+        0.7021,
+        0.3439,
+        0.1087,
+        0.0111,
+        0.0,
+        0.0,
+        0.0
+    ], ...
+}</code></pre>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

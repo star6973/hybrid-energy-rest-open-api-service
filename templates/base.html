@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %}</title>
+    <base href="">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- Material Kit CSS -->
+    <link href="/static/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet"/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+    <!--   Core JS Files   -->
+    <script src="/static/assets/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="/static/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="/static/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <script src="/static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Chartist JS -->
+    <script src="/static/assets/js/plugins/chartist.min.js"></script>
+    <!-- Google Chart JS-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="/static/assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/static/assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+
+<!--    <style>-->
+<!--        .card [class*="card-header-"] .card-icon, .card [class*="card-header-"] .card-text {-->
+<!--            padding: 1px;-->
+<!--        }-->
+<!--    </style>-->
+    {% block style %}{% endblock %}
+    {% endblock %}
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="sidebar" data-color="green" data-background-color="white">
+        <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+        <div class="logo">
+            <a href="/" class="simple-text logo-mini">
+                <img src="/static/kut_logo.jpg" style="max-width: 30%; height: auto;">
+                <br/>Service Oriented<br/>Computing
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item {% if menu == 'main' %}active{% endif %}  ">
+                    <a class="nav-link" href="/">
+                        <i class="material-icons">dashboard</i>
+                        <p>메인 화면</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {% if menu == 'manual' %}active{% endif %}  ">
+                    <a class="nav-link" href="/manual">
+                        <i class="material-icons">dashboard</i>
+                        <p>API 설명서</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {% if menu == 'execute' %}active{% endif %}  ">
+                    <a class="nav-link" href="/execute/day">
+                        <i class="material-icons">dashboard</i>
+                        <p>API 실행</p>
+                    </a>
+                </li>
+                <li class="nav-item {% if menu == 'example' %}active{% endif %}  ">
+                    <a class="nav-link" href="/example/day">
+                        <i class="material-icons">dashboard</i>
+                        <p>API 실행 예제</p>
+                    </a>
+                </li>
+                <!-- your sidebar here -->
+            </ul>
+        </div>
+        <div class="sidebar-background" style="background-image: url('/static/1.jpg')">
+        </div>
+    </div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <a class="navbar-brand">{% if menu == 'main' %} 메인 화면 {% elif menu == 'manual' %} API 설명서 {% elif menu =='execute' %} API 실행 {% else %} API 실행 예제 {% endif %}</a>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+
+        <div class="content">
+            <div class="container-fluid">
+                {% block body %}
+
+                {% endblock %}
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com">
+                                Creative Tim
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                    , made with <i class="material-icons">favorite</i> by
+                    <a href="/" target="_blank">KOREATECH</a>
+                </div>
+                <!-- your footer here -->
+            </div>
+        </footer>
+    </div>
+    <div>
+        <!--   Core JS Files   -->
+        <script src="/static/assets/js/core/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/assets/js/core/popper.min.js" type="text/javascript"></script>
+        <script src="/static/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+        <script src="/static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!--  Google Maps Plugin    -->
+        {#        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>#}
+        <!-- Chartist JS -->
+        <script src="/static/assets/js/plugins/chartist.min.js" type="text/javascript"></script>
+        <!--  Notifications Plugin    -->
+        <script src="/static/assets/js/plugins/bootstrap-notify.js" type="text/javascript"></script>
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="/static/assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+        <script type="text/javascript">
+            Date.prototype.format = function(f) {
+                if (!this.valueOf()) return " ";
+
+                var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+                var d = this;
+
+                return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
+                    switch ($1) {
+                        case "yyyy": return d.getFullYear();
+                        case "yy": return (d.getFullYear() % 1000).zf(2);
+                        case "MM": return (d.getMonth() + 1).zf(2);
+                        case "dd": return d.getDate().zf(2);
+                        case "E": return weekName[d.getDay()];
+                        case "HH": return d.getHours().zf(2);
+                        case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
+                        case "mm": return d.getMinutes().zf(2);
+                        case "ss": return d.getSeconds().zf(2);
+                        case "a/p": return d.getHours() < 12 ? "오전" : "오후";
+                        default: return $1;
+                    }
+                });
+            };
+
+            String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+            String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+            Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+            function set_time() {
+                $("#now_time").text(new Date().format("yyyy년 MM월 dd일 a/p hh시 mm분 ss초"))
+            }
+
+            set_time()
+            setInterval(set_time, 1000);
+        </script>
+        {% block additional_javascript %}
+
+        {% endblock %}
+    </div>
+</div>
+</body>
+
+</html>
