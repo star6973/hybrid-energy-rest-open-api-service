@@ -5,7 +5,7 @@ SOC Project
 서비스 지향 컴퓨팅은 분산 컴퓨팅에 대한 새로운 학제 간 패러다임으로 소프트웨어 응용 프로그램의 설계, 제공 및 소비 방식을 변화시키고 있습니다.
 서비스 지향 컴퓨팅의 핵심에는 표준 프로토콜을 사용하여 설명, 게시, 발견, 오케스트레이션 및 프로그래밍 할 수 있는 자율적이고 플랫폼에 독립적 인 계산 요소를 제공하는 서비스가 조직 경계 내부 및 조직 경계에 분산 된 협업 애플리케이션 네트워크를 구축합니다.
 
-## Project Theme: Hybrid (Wind / Solar) Energy REST OPEN API Service
+## Hybrid (Wind / Solar) Energy REST OPEN API Service
 1. 주제
 
     하이브리드 (풍력 / 태양 광) 에너지 REST OPEN API 서비스
